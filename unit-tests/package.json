@@ -1,0 +1,19 @@
+{
+  "name": "ftr-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ginkotte/ftr-tests.git",
+  "author": "Gustavo Inkotte <gus.inkotte@gmail.com>",
+  "license": "MIT",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --recursive test/**/*.test.js"
+  },
+  "devDependencies": {
+    "chai": "^6.3.0",
+    "mocha": "^12.0.3",
+    "sinon": "^22.1.0"
+  }
+}
