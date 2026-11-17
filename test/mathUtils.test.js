@@ -1,6 +1,8 @@
 import { expect } from "chai"
+import sinon from "sinon";
 import { GenericContainer } from "testcontainers"
-import { sum } from "../src/mathUtils.js"
+import { fetchAndSum, sum } from "../src/mathUtils.js"
+import { beforeEach } from "mocha";
 
 let container;
 
@@ -29,4 +31,24 @@ describe('sum', () => {
   it('should throw error for non-number inputs', () => {
     expect(() => sum("2", 3)).to.throw('Invalid arguments');
   });
-})
+});
+
+describe('fetchAndSum', () => {
+  let apiClientStub;
+
+  beforeEach(() => {
+    apiClientStub = {
+      get: sinon.stub()
+    };
+  });
+
+  it('must sum if the API returns valid: true', async () => {
+    apiClientStub.get.resolves({ valid: true });
+
+    const result = await fetchAndSum(apiClientStub, 2, 3);
+
+    expect(result).to.equal(5);
+
+    expect(apiClientStub.get.calledWith("/validate", {params: {x: 2, y:3}})).to.be.true;
+  });
+});
