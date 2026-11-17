@@ -15,13 +15,14 @@ jobs:
       - name: Setup Node.jobs
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22.22
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: |
+          yarn install --frozen-lockfile
 
       - name: Run tests
-        run: npm test
+        run: yarn test
 
       - name: Check Coverage
-        run: npx c8 --check-coverage --lines 80 --branches 80 npm test
+        run: npx c8 --check-coverage --lines 80 --branches 80 yarn test
